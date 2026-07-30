@@ -1,4 +1,5 @@
 # 0.6.2-wip
+* Added `uuid()` for generating cryptographically random version 4 UUIDs.
 * Fixed JS interop to enable WebAssembly.
 * Fixed native RSA public-key JWK imports to reject private key material.
 

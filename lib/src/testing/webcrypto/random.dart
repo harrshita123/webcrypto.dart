@@ -32,6 +32,19 @@ List<({String name, Future<void> Function() test})> tests() {
   void test(String name, Future<void> Function() test) =>
       tests.add((name: name, test: test));
 
+  test('uuid: generates valid unique version 4 UUIDs', () async {
+    final generated = <String>{};
+    final pattern = RegExp(
+      r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',
+    );
+
+    for (var i = 0; i < 100; i++) {
+      final value = uuid();
+      check(pattern.hasMatch(value), 'invalid version 4 UUID: $value');
+      check(generated.add(value), 'generated duplicate UUID: $value');
+    }
+  });
+
   test('fillRandomBytes: Uint8List', () async {
     final data = Uint8List(16 * 1024);
     isAllZero(data);

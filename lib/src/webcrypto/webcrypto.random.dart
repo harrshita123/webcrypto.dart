@@ -14,6 +14,36 @@
 
 part of 'webcrypto.dart';
 
+/// Generates a cryptographically random version 4 UUID.
+///
+/// This implements the [Web Cryptography `randomUUID` algorithm][1]. The
+/// returned string contains 36 lowercase characters in the form
+/// `xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx`, where `y` is one of `8`, `9`, `a`,
+/// or `b`.
+///
+/// [1]: https://w3c.github.io/webcrypto/#Crypto-method-randomUUID
+String uuid() {
+  final bytes = Uint8List(16);
+  fillRandomBytes(bytes);
+
+  // Set the UUID version to 4 and the variant's two most significant bits to
+  // 10, as required by the Web Cryptography specification.
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+
+  const hexDigits = '0123456789abcdef';
+  final uuid = StringBuffer();
+  for (var i = 0; i < bytes.length; i++) {
+    if (i == 4 || i == 6 || i == 8 || i == 10) {
+      uuid.write('-');
+    }
+    uuid
+      ..write(hexDigits[bytes[i] >> 4])
+      ..write(hexDigits[bytes[i] & 0x0f]);
+  }
+  return uuid.toString();
+}
+
 /// Fill [destination] with cryptographically random values.
 ///
 /// Does not accept a [destination] larger than `65536` bytes, use multiple
