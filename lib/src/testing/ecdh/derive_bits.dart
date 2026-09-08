@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:webcrypto/webcrypto.dart';
-import '../utils/detected_runtime.dart';
 import '../utils/utils.dart';
 
 final _cases = [
@@ -30,10 +29,6 @@ List<({String name, Future<void> Function() test})> tests() {
       tests.add((name: name, test: fn));
 
   for (final c in _cases) {
-    if (detectedRuntime == 'safari' && c.curve == EllipticCurve.p521) {
-      continue;
-    }
-
     test('ECDH: ${c.name} allows maximum deriveBits length', () async {
       final aliceKeyPair = await EcdhPrivateKey.generateKey(c.curve);
       final bobKeyPair = await EcdhPrivateKey.generateKey(c.curve);
