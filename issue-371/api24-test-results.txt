@@ -1,0 +1,100 @@
+Issue #371 API 24 test record
+Device: Android 7.0 (API 24), Google APIs ARM64 emulator, emulator-5554
+Test command for each case: flutter test integration_test/<test file> -d emulator-5554 --timeout 5m
+Local checkout paths in test output are abbreviated below.
+
+========================================================================
+BEFORE: 8d701ba, RSA-OAEP (expected failure)
+Exit code: 1
+========================================================================
+00:00 +0: loading /checkout/before/example/webcrypto_demo_flutter_app/integration_test/jni_rsaoaep_test.dart
+Upgrading gradle.properties
+Upgrading gradle.properties
+Running Gradle task 'assembleDebug'...                             37.2s
+✓ Built build/app/outputs/flutter-apk/app-debug.apk
+Installing build/app/outputs/flutter-apk/app-debug.apk...           3.5s
+00:00 +0: public API RSA-OAEP supports all backend hashes
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following FormatException was thrown running a test:
+Invalid RSA private key: CRT parameters are required
+
+When the exception was thrown, this was the stack:
+#0      _checkData (package:webcrypto/src/impl_jni/impl_jni.utils.dart:38:5)
+#1      _validateRsaPrivateKey (package:webcrypto/src/impl_jni/impl_jni.rsa_common.dart:386:3)
+#2      _importPkcs8RsaPrivateKey.<anonymous closure>.<anonymous closure> (package:webcrypto/src/impl_jni/impl_jni.rsa_common.dart:60:9)
+#3      _validateRsaKeyBeforeOwnershipTransfer (package:webcrypto/src/impl_jni/impl_jni.rsa_common.dart:171:13)
+#4      _importPkcs8RsaPrivateKey.<anonymous closure> (package:webcrypto/src/impl_jni/impl_jni.rsa_common.dart:59:14)
+#5      using (package:ffi/src/arena.dart:127:31)
+#6      _importPkcs8RsaPrivateKey (package:webcrypto/src/impl_jni/impl_jni.rsa_common.dart:57:16)
+#7      _StaticRsaOaepPrivateKeyImpl.generateKey (package:webcrypto/src/impl_jni/impl_jni.rsaoaep.dart:59:9)
+<asynchronous suspension>
+#8      RsaOaepPrivateKey.generateKey (package:webcrypto/src/webcrypto/webcrypto.rsaoaep.dart:252:45)
+<asynchronous suspension>
+#9      main.<anonymous closure> (file:///checkout/before/example/webcrypto_demo_flutter_app/integration_test/jni_rsaoaep_test.dart:11:21)
+<asynchronous suspension>
+#10     testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#11     TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  public API RSA-OAEP supports all backend hashes
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:00 +0 -1: public API RSA-OAEP supports all backend hashes [E]
+  Test failed. See exception logs above.
+  The test description was: public API RSA-OAEP supports all backend hashes
+  
+00:00 +0 -1: (tearDownAll)
+00:00 +0 -1: Some tests failed.
+
+Failing tests:
+  /checkout/before/example/webcrypto_demo_flutter_app/integration_test/jni_rsaoaep_test.dart: public API RSA-OAEP supports all backend hashes
+
+========================================================================
+AFTER: 118ab2f, RSA-OAEP
+Exit code: 0
+========================================================================
+
+┌─────────────────────────────────────────────────────────┐
+│ A new version of Flutter is available!                  │
+│                                                         │
+│ To update to the latest version, run "flutter upgrade". │
+└─────────────────────────────────────────────────────────┘
+Upgrading analysis_options.yaml to exclude build and platform directories.
+00:00 +0: loading /checkout/fixed/example/webcrypto_demo_flutter_app/integration_test/jni_rsaoaep_test.dart
+Upgrading gradle.properties
+Upgrading gradle.properties
+Running Gradle task 'assembleDebug'...                          
+Warning: SDK processing. This version only understands SDK XML versions up to 3 but an SDK XML file of version 4 was encountered. This can happen if you use versions of Android Studio and the command-line tools that were released at different times.
+Running Gradle task 'assembleDebug'...                             22.1s
+✓ Built build/app/outputs/flutter-apk/app-debug.apk
+Installing build/app/outputs/flutter-apk/app-debug.apk...        2,042ms
+00:00 +0: public API RSA-OAEP supports all backend hashes
+00:00 +1: (tearDownAll)
+00:01 +1: All tests passed!
+
+========================================================================
+AFTER: 118ab2f, RSASSA-PKCS1-v1_5
+Exit code: 0
+========================================================================
+00:00 +0: loading /checkout/fixed/example/webcrypto_demo_flutter_app/integration_test/jni_rsassapkcs1v15_test.dart
+Running Gradle task 'assembleDebug'...                             11.3s
+✓ Built build/app/outputs/flutter-apk/app-debug.apk
+Installing build/app/outputs/flutter-apk/app-debug.apk...           3.8s
+00:00 +0: public API RSASSA-PKCS1-v1_5 signs and verifies
+00:00 +1: (tearDownAll)
+00:00 +1: All tests passed!
+
+========================================================================
+AFTER: 118ab2f, RSA-PSS
+Exit code: 0
+========================================================================
+00:00 +0: loading /checkout/fixed/example/webcrypto_demo_flutter_app/integration_test/jni_rsapss_test.dart
+Running Gradle task 'assembleDebug'...                             10.1s
+✓ Built build/app/outputs/flutter-apk/app-debug.apk
+Installing build/app/outputs/flutter-apk/app-debug.apk...        1,122ms
+00:00 +0: public API RSA-PSS supports all backend hashes
+00:00 +1: (tearDownAll)
+00:00 +1: All tests passed!
