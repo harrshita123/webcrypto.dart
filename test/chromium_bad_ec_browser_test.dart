@@ -79,8 +79,8 @@ void main() {
           reason: 'Chromium vector $index: ${vector['error']}',
         );
       },
-      onPlatform: index == 14
-          ? {'firefox': Skip('Firefox accepts this private JWK')}
+      onPlatform: {14, 16, 17, 19}.contains(index)
+          ? {'firefox': Skip('Firefox accepts this EC key')}
           : null,
     );
   }
