@@ -92,6 +92,9 @@ final class HkdfSecretKey {
     List<int> salt,
     List<int> info,
   ) async {
+    if (length > 0xffffffff) {
+      throw operationError(hkdfLengthTooLong);
+    }
     checkUnsignedLong(length, 'length');
     return await _impl.deriveBits(length, hash._impl, salt, info);
   }

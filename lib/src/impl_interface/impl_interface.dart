@@ -56,6 +56,10 @@ final class OperationError extends Error {
 @internal
 OperationError operationError(String message) => OperationError._(message);
 
+@internal
+const hkdfLengthTooLong =
+    'Length specified for HkdfSecretKey.deriveBits is too long';
+
 /// Validate that [value] fits Web IDL's `unsigned long` type.
 @internal
 void checkUnsignedLong(int value, String name) {

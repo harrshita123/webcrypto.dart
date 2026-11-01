@@ -30,11 +30,12 @@ List<({String name, Future<void> Function() test})> tests() => [
     name: 'HKDF rejects lengths outside the Web IDL unsigned long range',
     test: () async {
       final key = await HkdfSecretKey.importRawKey([1]);
-      for (final length in [-0xfffffff8, 0x100000008]) {
-        await _expectArgumentError(
-          key.deriveBits(length, Hash.sha256, [2], [3]),
-        );
-      }
+      await _expectArgumentError(
+        key.deriveBits(-0xfffffff8, Hash.sha256, [2], [3]),
+      );
+      await _expectOperationError(
+        key.deriveBits(0x100000008, Hash.sha256, [2], [3]),
+      );
     },
   ),
 ];
@@ -47,4 +48,16 @@ Future<void> _expectArgumentError(Future<List<int>> operation) async {
     threw = true;
   }
   check(threw, 'Expected ArgumentError for invalid deriveBits length');
+}
+
+Future<void> _expectOperationError(Future<List<int>> operation) async {
+  var threw = false;
+  try {
+    await operation;
+  } on OperationError catch (error) {
+    threw =
+        error.toString() ==
+        'Length specified for HkdfSecretKey.deriveBits is too long';
+  }
+  check(threw, 'Expected OperationError for oversized HKDF output');
 }
