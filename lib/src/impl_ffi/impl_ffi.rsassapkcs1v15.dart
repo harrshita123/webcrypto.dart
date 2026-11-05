@@ -178,7 +178,7 @@ final class _RsaSsaPkcs1V15PublicKeyImpl
 
   @override
   Future<bool> verifyBytes(List<int> signature, List<int> data) =>
-      verifyStream(signature, Stream.value(data));
+      verifyStream(signature, Stream.value(Uint8List.fromList(data)));
 
   @override
   Future<bool> verifyStream(List<int> signature, Stream<List<int>> data) =>

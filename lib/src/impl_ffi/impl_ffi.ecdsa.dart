@@ -274,7 +274,7 @@ final class _EcdsaPublicKeyImpl implements EcdsaPublicKeyImpl {
     List<int> signature,
     List<int> data,
     HashImpl hash,
-  ) => verifyStream(signature, Stream.value(data), hash);
+  ) => verifyStream(signature, Stream.value(Uint8List.fromList(data)), hash);
 
   @override
   Future<bool> verifyStream(

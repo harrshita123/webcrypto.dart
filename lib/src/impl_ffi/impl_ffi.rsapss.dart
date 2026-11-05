@@ -205,7 +205,11 @@ final class _RsaPssPublicKeyImpl implements RsaPssPublicKeyImpl {
     List<int> signature,
     List<int> data,
     int saltLength,
-  ) => verifyStream(signature, Stream.value(data), saltLength);
+  ) => verifyStream(
+    signature,
+    Stream.value(Uint8List.fromList(data)),
+    saltLength,
+  );
 
   @override
   Future<bool> verifyStream(
